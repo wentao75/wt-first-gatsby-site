@@ -6,20 +6,27 @@ import Seo from "../components/seo";
 const BlogPage = ({ data }) => {
     return (
         <Layout pageTitle="我的博客">
-            <ul>
-                {data.allFile.nodes.map((node) => (
-                    <li key={node.name}>{node.name}</li>
-                ))}
-            </ul>
+            {data.allMdx.nodes.map((node) => (
+                <article key={node.id}>
+                    <h2>{node.frontmatter.title}</h2>
+                    <p>发布于：{node.frontmatter.date}</p>
+                    <p>{node.excerpt}</p>
+                </article>
+            ))}
         </Layout>
     );
 };
 
 export const query = graphql`
     query {
-        allFile {
+        allMdx(sort: { frontmatter: { date: DESC } }) {
             nodes {
-                name
+                frontmatter {
+                    date(formatString: "YYYY年MM月DD日")
+                    title
+                }
+                id
+                excerpt
             }
         }
     }
