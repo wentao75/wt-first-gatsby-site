@@ -5,11 +5,21 @@
 
 module.exports = {
     siteMetadata: {
-        title: `WT First Gatsby Site`,
+        title: `WT的Gatsby教学站点`,
         siteUrl: `https://www.yourdomain.tld`,
     },
     // adapter: adapter({
     //     excludeDatastoreFromEngineFunction: false,
     // }),
-    plugins: ["gatsby-plugin-image", "gatsby-plugin-sharp"],
+    plugins: [
+        "gatsby-plugin-image",
+        "gatsby-plugin-sharp",
+        {
+            resolve: "gatsby-source-filesystem",
+            options: {
+                name: `blog`,
+                path: `${__dirname}/blog`,
+            },
+        },
+    ],
 };
